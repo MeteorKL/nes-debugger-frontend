@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 17px;
+  font-size: 14px;
+  font-family: Consolas, monaco, "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", sans-serif;
+}
+.App {
+  .Common {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 258px;
+    border-right: 2px solid darkgrey;
+  }
+  .Page {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 258px;
+    right: 0;
+  }
+}

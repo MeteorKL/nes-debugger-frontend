@@ -2,8 +2,11 @@ import uuidv4 from 'uuid/v4';
 import config from './config';
 
 let ws = new WebSocket(config.wsURL);
+let messages = [];
 ws.onopen = (event) => {
     console.log(event);
+    messages.forEach(msg => ws.send(msg));
+    messages = [];
 };
 ws.onerror = (event) => {
     console.log(event);
@@ -23,11 +26,13 @@ ws.onclose = (event) => {
 };
 
 function pub(topic, payload) {
+    let msg = JSON.stringify({ topic, payload });
     if (!ws || ws.readyState !== WebSocket.OPEN) {
-        console.error(ws.readyState);
+        console.warn(ws.readyState);
+        messages.push(msg);
         return;
     }
-    ws.send(JSON.stringify({topic, payload}));
+    ws.send(msg);
 }
 
 let listeners = {};
@@ -39,6 +44,7 @@ function sub(topic, callback) {
     };
     return uuid;
 }
+
 function unsub(uuid) {
     delete listeners[uuid];
 }

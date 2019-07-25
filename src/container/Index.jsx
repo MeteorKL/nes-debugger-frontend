@@ -1,25 +1,22 @@
 import React from 'react';
-import ws from '../utils/ws';
+
+import ToolBar from './ToolBar';
+import NesInfo from './NesInfo';
 
 export default class component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            msg: 'Index'
+            romlist: []
         };
-    }
-
-    componentDidMount() {
-        ws.sub('test', (payload) => {
-            this.setState({msg: JSON.stringify(payload)});
-        });
     }
 
     render() {
         return (
-            <button onClick={()=>ws.pub('xx', 'xx')}>
-                {this.state.msg}
-            </button>
+            <div>
+                <ToolBar />
+                <NesInfo />
+            </div>
         );
     }
 }

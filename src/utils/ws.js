@@ -12,7 +12,7 @@ ws.onerror = (event) => {
     console.log(event);
 };
 ws.onmessage = (event) => {
-    console.log(event.data);
+    // console.log(event.data);
     let msg = JSON.parse(event.data);
     Object.values(listeners).forEach(listener => {
         if (listener.topic === msg.topic) {

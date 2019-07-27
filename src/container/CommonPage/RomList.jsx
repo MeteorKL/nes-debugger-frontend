@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ws from '../utils/ws';
+import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const List = styled.ul`
@@ -31,7 +31,7 @@ export default class component extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.className}>
                 <List>{this.state.romlist.map(rom =>
                     <Item key={rom}>
                         <Button onClick={() => ws.pub('loadrom', rom)}>{rom}</Button>

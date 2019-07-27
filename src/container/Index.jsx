@@ -1,8 +1,5 @@
 import React from 'react';
 
-import ToolBar from './ToolBar';
-import NesInfo from './NesInfo';
-
 export default class component extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +11,7 @@ export default class component extends React.Component {
     render() {
         return (
             <div>
-                <ToolBar />
-                <NesInfo />
+                index
             </div>
         );
     }

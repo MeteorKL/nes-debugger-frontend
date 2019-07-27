@@ -1,17 +1,12 @@
 import React from 'react';
 
-import ws from '../utils/ws';
-
-import RomList from './RomList';
+import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Button = styled.button`
-    padding: 5px;
-    width: 30px;
-    height: 30px;
-    margin-right:10px;
-    /* background: rgb(5,39,175); */
-    /* color: white; */
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
     outline: none;
 `;
 
@@ -26,7 +21,6 @@ export default class component extends React.Component {
                     <Button title="run" onClick={() => ws.pub('run')}>►</Button>
                     <Button title="stop" onClick={() => ws.pub('stop')}>▣</Button>
                 </div>
-                <RomList />
             </div>
         );
     }

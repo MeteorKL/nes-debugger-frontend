@@ -3,6 +3,11 @@ import React from 'react';
 import ws from '../../utils/ws';
 
 import styled from 'styled-components';
+const App = styled.div`
+    flex: 1;
+    width: 100%;
+    position: relative;
+`;
 const Table = styled.div`
     overflow: scroll;
     position: absolute;
@@ -10,9 +15,7 @@ const Table = styled.div`
     top: 0;
     bottom: 0;
     right: 0;
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 `;
 const Row = styled.div`
     display: flex;
@@ -24,6 +27,7 @@ const Row = styled.div`
     }
     :nth-child(1){
         background-color: #4CAF50;
+        border-bottom: 1px solid #ddd;
         color: white;
         position: sticky;
         top: 0;
@@ -32,7 +36,10 @@ const Row = styled.div`
 const Column = styled.div`
     padding-left: 4px;
     flex: 1;
-    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    :nth-child(1){
+        border: none;
+    }
 `;
 const Input = styled.input`
     width: 100%;
@@ -69,14 +76,14 @@ class component extends React.Component {
                     };
                 })
             });
-            ws.pub('cpu_registers');
+            ws.pub('cpu_info');
         });
     }
 
     render() {
         return (
-            <div className={this.props.className}>
-                <Table>
+            <App>
+                <Table className={this.props.className}>
                     <Row>
                         <Column style={{ maxWidth: '100px' }}>Address</Column>
                         <Column style={{ maxWidth: '100px' }}>HexDump</Column>
@@ -92,7 +99,7 @@ class component extends React.Component {
                         </Row>
                     )}
                 </Table>
-            </div >
+            </App>
         );
     }
 }

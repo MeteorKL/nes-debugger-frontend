@@ -1,12 +1,12 @@
 import React from 'react';
+// import { sprintf } from 'sprintf-js';
 
 import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Table = styled.div`
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    flex: 1;
 `;
 const Row = styled.div`
     display: flex;
@@ -18,6 +18,7 @@ const Row = styled.div`
     }
     :nth-child(1){
         background-color: #4CAF50;
+        border-bottom: 1px solid #ddd;
         color: white;
         position: sticky;
         top: 0;
@@ -35,25 +36,25 @@ class component extends React.Component {
     }
 
     componentDidMount() {
-        ws.sub('cpu_registers', (payload) => {
-            this.setState({ registers: payload.registers });
+        ws.sub('cpu_info', (payload) => {
+            this.setState({ stack: payload.stack });
         });
     }
 
     render() {
         return (
-            <div className={this.props.className}>
-                <Table>
-                    <Row>
-                        Registers
-                    </Row>
-                        {Object.keys(this.state.registers).map(key =>
-                            <Row key={key}>
-                            <Column>{key}</Column>
-                            <Column>{this.state.registers[key]}</Column>
-                            </Row>)}
-                </Table>
-            </div>
+            <Table className={this.props.className}>
+                <Row>
+                    <Column>
+                        Stack
+                        </Column>
+                </Row>
+                {Object.keys(this.state.stack).map(key =>
+                    <Row key={key}>
+                        <Column>{key}</Column>
+                        <Column>{this.state.stack[key]}</Column>
+                    </Row>)}
+            </Table>
         );
     }
 }

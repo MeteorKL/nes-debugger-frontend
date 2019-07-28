@@ -6,12 +6,14 @@ import styled from 'styled-components';
 const Table = styled.div`
 `;
 const Row = styled.div`
-    border-left: 1px solid #ddd;
     display: flex;
 `;
 const Column = styled.div`
     flex: 1;
-    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    :nth-child(1){
+        border: none;
+    }
 `;
 const HeaderColumn = styled(Column)`
     border-top: 1px solid #ddd;

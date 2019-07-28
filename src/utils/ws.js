@@ -5,11 +5,17 @@ let ws = new WebSocket(config.wsURL);
 let messages = [];
 ws.onopen = (event) => {
     console.log(event);
+    Object.values(open_listeners).forEach(listener => {
+        listener(event);
+    });
     messages.forEach(msg => ws.send(msg));
     messages = [];
 };
 ws.onerror = (event) => {
     console.log(event);
+    Object.values(error_listeners).forEach(listener => {
+        listener(event);
+    });
 };
 ws.onmessage = (event) => {
     // console.log(event.data);
@@ -23,7 +29,31 @@ ws.onmessage = (event) => {
 
 ws.onclose = (event) => {
     console.log(event);
+    Object.values(close_listeners).forEach(listener => {
+        listener(event);
+    });
 };
+
+var open_listeners = {};
+function onopen(callback) {
+    let uuid = uuidv4();
+    open_listeners[uuid] = callback;
+    return uuid;
+}
+
+let close_listeners = {};
+function onclose(callback) {
+    let uuid = uuidv4();
+    close_listeners[uuid] = callback;
+    return uuid;
+}
+
+let error_listeners = {};
+function onerror(callback) {
+    let uuid = uuidv4();
+    error_listeners[uuid] = callback;
+    return uuid;
+}
 
 function pub(topic, payload) {
     let msg = JSON.stringify({ topic, payload });
@@ -50,7 +80,10 @@ function unsub(uuid) {
 }
 
 export default {
+    onopen,
+    onclose,
+    onerror,
     pub: pub,
     sub: sub,
-    unsub: unsub
+    unsub: unsub,
 };

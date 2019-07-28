@@ -1,10 +1,13 @@
 import React from 'react';
+// import { sprintf } from 'sprintf-js';
 
 import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Table = styled.div`
+    height: 100px;
     border: 1px solid #ddd;
+    width: 100%;
 `;
 const Row = styled.div`
     display: flex;
@@ -33,29 +36,12 @@ const Column = styled.div`
 
 class component extends React.Component {
     state = {
-        registers: {
-            PC: 0,
-            A: 0,
-            X: 0,
-            Y: 0,
-            SP: 0,
-            P: 0,
-            N: 0, V: 0, U: 0, B: 0,
-            D: 0, I: 0, Z: 0, C: 0,
-        }
+        stack: []
     }
 
     componentDidMount() {
         ws.sub('cpu_info', (payload) => {
-            payload.registers.C = (payload.registers.P >> 0) & 1;
-            payload.registers.Z = (payload.registers.P >> 1) & 1;
-            payload.registers.I = (payload.registers.P >> 2) & 1;
-            payload.registers.D = (payload.registers.P >> 3) & 1;
-            payload.registers.B = (payload.registers.P >> 4) & 1;
-            payload.registers.U = (payload.registers.P >> 5) & 1;
-            payload.registers.O = (payload.registers.P >> 6) & 1;
-            payload.registers.N = (payload.registers.P >> 7) & 1;
-            this.setState({ registers: payload.registers });
+            this.setState({ stack: payload.stack });
         });
     }
 
@@ -64,13 +50,13 @@ class component extends React.Component {
             <Table className={this.props.className}>
                 <Row>
                     <Column>
-                        Registers
+                        Memory
                         </Column>
                 </Row>
-                {Object.keys(this.state.registers).map(key =>
+                {Object.keys(this.state.stack).map(key =>
                     <Row key={key}>
                         <Column>{key}</Column>
-                        <Column>{this.state.registers[key]}</Column>
+                        <Column>{this.state.stack[key]}</Column>
                     </Row>)}
             </Table>
         );

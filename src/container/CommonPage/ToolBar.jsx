@@ -14,13 +14,11 @@ export default class component extends React.Component {
 
     render() {
         return (
-            <div className="ToolBar">
-                <div>
-                    <Button title="create" onClick={() => ws.pub('romlist')}>+</Button>
-                    <Button title="reset(Ctrl+F2)" onClick={() => ws.pub('reset')}>↻</Button>
-                    <Button title="run" onClick={() => ws.pub('run')}>►</Button>
-                    <Button title="stop" onClick={() => ws.pub('stop')}>▣</Button>
-                </div>
+            <div>
+                <Button title="create" onClick={() => ws.pub('romlist')}>+</Button>
+                <Button title="reset(Ctrl+F2)" onClick={() => ws.pub('reset')}>↻</Button>
+                <Button title="run" onClick={() => ws.pub('run')}>►</Button>
+                <Button title="stop" onClick={() => ws.pub('stop')}>▣</Button>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ws from '../../utils/ws';
 
@@ -48,6 +49,10 @@ const Input = styled.input`
 `;
 
 class component extends React.Component {
+    propTypes = {
+        className: PropTypes.string,
+    }
+
     constructor(props) {
         super(props);
         let instructions = [];

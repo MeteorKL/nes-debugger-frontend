@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ws from '../../utils/ws';
 
@@ -32,6 +33,10 @@ const Column = styled.div`
 `;
 
 class component extends React.Component {
+    propTypes = {
+        className: PropTypes.string,
+    }
+
     state = {
         registers: {
             PC: 0,
@@ -65,7 +70,7 @@ class component extends React.Component {
                 <Row>
                     <Column>
                         Registers
-                        </Column>
+                    </Column>
                 </Row>
                 {Object.keys(this.state.registers).map(key =>
                     <Row key={key}>

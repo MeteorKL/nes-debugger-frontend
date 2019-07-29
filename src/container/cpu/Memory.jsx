@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import { sprintf } from 'sprintf-js';
 
 import ws from '../../utils/ws';
@@ -35,6 +36,10 @@ const Column = styled.div`
 `;
 
 class component extends React.Component {
+    propTypes = {
+        className: PropTypes.string,
+    }
+
     state = {
         stack: []
     }
@@ -51,7 +56,7 @@ class component extends React.Component {
                 <Row>
                     <Column>
                         Memory
-                        </Column>
+                    </Column>
                 </Row>
                 {Object.keys(this.state.stack).map(key =>
                     <Row key={key}>

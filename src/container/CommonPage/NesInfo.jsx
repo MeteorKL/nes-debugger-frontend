@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ws from '../../utils/ws';
 
@@ -30,6 +31,10 @@ const Column = styled.div`
 `;
 
 class component extends React.Component {
+    propTypes = {
+        className: PropTypes.string,
+    }
+
     state = {
         // nesinfo: {
         //     mapper: "",
@@ -41,13 +46,13 @@ class component extends React.Component {
     componentDidMount() {
         ws.sub('nesinfo', (payload) => {
             let nesinfo = payload.nesinfo;
-            let chrRomKey = nesinfo.isChrRam ? "CHR RAM" : "CHR ROM";
+            let chrRomKey = nesinfo.isChrRam ? 'CHR RAM' : 'CHR ROM';
             this.setState({
                 nesinfo: {
                     mapper: nesinfo.mapper,
                     mirror: nesinfo.mirror,
                     [chrRomKey]: `${nesinfo.chrRom * 8}K (=${nesinfo.chrRom}*8K)`,
-                    "PRG ROM": `${nesinfo.chrRom * 16}K (=${nesinfo.chrRom}*16K)`
+                    'PRG ROM': `${nesinfo.chrRom * 16}K (=${nesinfo.chrRom}*16K)`
                 },
             });
             ws.pub('cpu_instructions');
@@ -64,7 +69,7 @@ class component extends React.Component {
                         </Row>
                         {Object.keys(this.state.nesinfo).map(key =>
                             <Row key={key}>
-                                <Column style={{maxWidth: "80px"}}>{key}</Column>
+                                <Column style={{maxWidth: '80px'}}>{key}</Column>
                                 <Column>{this.state.nesinfo[key]}</Column>
                             </Row>)}
                     </Table>

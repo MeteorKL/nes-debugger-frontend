@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ToolBar from './ToolBar';
 import NesInfo from './NesInfo';
@@ -22,6 +23,9 @@ const StyledNesInfo = styled(NesInfo)`
     right: 0; */
 `;
 export default class component extends React.Component {
+    propTypes = {
+        className: PropTypes.string,
+    }
 
     render() {
         return (

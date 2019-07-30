@@ -19,6 +19,7 @@ const Button = styled.button`
 export default class component extends React.Component {
     static propTypes = {
         className: PropTypes.string,
+        hidden: PropTypes.bool
     }
 
     constructor(props) {
@@ -36,7 +37,7 @@ export default class component extends React.Component {
 
     render() {
         return (
-            <div className={this.props.className}>
+            <div className={this.props.className} hidden={this.props.hidden}>
                 <List>{this.state.romlist.map(rom =>
                     <Item key={rom}>
                         <Button onClick={() => ws.pub('loadrom', rom)}>{rom}</Button>

@@ -56,7 +56,13 @@ function onerror(callback) {
 }
 
 function pub(topic, payload) {
-    let msg = JSON.stringify({ topic, payload });
+    payload = payload || {};
+    if (typeof payload === 'object') {
+        payload.topic = topic;
+    } else {
+        payload = {topic, payload};
+    }
+    let msg = JSON.stringify(payload);
     if (!ws || ws.readyState !== WebSocket.OPEN) {
         console.warn(ws.readyState);
         messages.push(msg);

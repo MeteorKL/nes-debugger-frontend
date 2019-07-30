@@ -2,6 +2,7 @@ import React from 'react';
 
 import Buttons from './Buttons';
 import Instructions from './Instructions';
+import Vectors from './Vectors';
 import Registers from './Registers';
 import Stack from './Stack';
 import Memory from './Memory';
@@ -95,6 +96,7 @@ export default class component extends React.Component {
                         <Memory/>
                     </LeftDiv>
                     <RightDiv>
+                        <Vectors />
                         <Registers />
                         <Stack />
                     </RightDiv>

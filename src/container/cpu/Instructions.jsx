@@ -58,12 +58,13 @@ class component extends React.Component {
         super(props);
         this.state = {
             instructions: [{
-                address: '0000',
+                address: 'C000',
                 hex: '',
                 disassembly: '',
                 comment: ''
             }],
         };
+        this.breakpoints = {};
     }
 
     componentDidMount() {
@@ -96,6 +97,21 @@ class component extends React.Component {
         });
     }
 
+    addBreakpoint(address) {
+        this.breakpoints[address] = !this.breakpoints[address];
+        ws.sub('breakpoint', (payload) => {
+            let ref = this['refs'][payload.address];
+            if (payload.enable) {
+                ref.classList.add('brackpoint');
+            } else {
+                ref.classList.remove('brackpoint');
+            }
+        });
+        ws.pub('breakpoint', {
+            address: address,
+            enable: this.breakpoints[address]
+        });
+    }
 
     render() {
         return (
@@ -108,7 +124,7 @@ class component extends React.Component {
                         <Column>Comment</Column>
                     </Row>
                     {this.state.instructions.map(instruction =>
-                        <Row key={instruction.address} ref={instruction.address}>
+                        <Row key={instruction.address} ref={instruction.address} onClick={()=>{this.addBreakpoint(instruction.address);}}>
                             <Column style={{ maxWidth: '100px' }}>{instruction.address}</Column>
                             <Column style={{ maxWidth: '100px' }}>{instruction.hex}</Column>
                             <Column style={{ maxWidth: '300px' }}>{instruction.disassembly}</Column>

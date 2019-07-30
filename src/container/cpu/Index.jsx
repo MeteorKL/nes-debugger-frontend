@@ -40,7 +40,7 @@ const BodyDiv = styled.div`
     padding: 1px 0; */
 `;
 const FootDiv = styled.div`
-    height: 24px;
+    height: 1.5em;
     display: flex;
     flex-wrap: wrap;
 `;
@@ -92,7 +92,7 @@ export default class component extends React.Component {
                 <BodyDiv>
                     <LeftDiv>
                         <Instructions />
-                        <Memory />
+                        <Memory/>
                     </LeftDiv>
                     <RightDiv>
                         <Registers />

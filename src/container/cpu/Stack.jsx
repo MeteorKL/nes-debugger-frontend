@@ -18,6 +18,7 @@ const Row = styled.div`
         background-color: #ddd;
     }
     :nth-child(1){
+        font-weight: bold;
         background-color: #4CAF50;
         border-bottom: 1px solid #ddd;
         color: white;
@@ -32,7 +33,7 @@ const Column = styled.div`
 `;
 
 class component extends React.Component {
-    propTypes = {
+    static propTypes = {
         className: PropTypes.string,
     }
 

@@ -31,7 +31,7 @@ const Column = styled.div`
 `;
 
 class component extends React.Component {
-    propTypes = {
+    static propTypes = {
         className: PropTypes.string,
     }
 

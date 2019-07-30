@@ -7,6 +7,7 @@ const App = styled.div`
     width: 100%;
 `;
 const Input = styled.input`
+    height: 1.5em;
     outline: none;
 `;
 
@@ -21,16 +22,16 @@ export default class component extends React.Component {
     }
 
     componentDidMount() {
-        ws.onclose(() => this.setState({status: 'black'}));
-        ws.onerror(() => this.setState({status: 'red'}));
-        ws.onopen(() => this.setState({status: 'green'}));
+        ws.onclose(() => this.setState({ status: 'black' }));
+        ws.onerror(() => this.setState({ status: 'red' }));
+        ws.onopen(() => this.setState({ status: 'green' }));
     }
 
     render() {
         const Status = styled.div`
-        float: right;
-            height: 100%;
-            width: 24px;
+            float: right;
+            height: 1.5em;
+            width: 1.5em;
             background-color: ${this.state.status};
             border: 1px solid #ddd;
         `;

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './Instructions.scss';
 import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const App = styled.div`
     flex: 1;
-    width: 100%;
     position: relative;
 `;
 const Table = styled.div`
@@ -27,6 +27,7 @@ const Row = styled.div`
         background-color: #ddd;
     }
     :nth-child(1){
+        font-weight: bold;
         background-color: #4CAF50;
         border-bottom: 1px solid #ddd;
         color: white;
@@ -49,23 +50,19 @@ const Input = styled.input`
 `;
 
 class component extends React.Component {
-    propTypes = {
+    static propTypes = {
         className: PropTypes.string,
     }
 
     constructor(props) {
         super(props);
-        let instructions = [];
-        // for (let i = 1; i < 1000; i++) {
-        //     instructions.push({
-        //         address: i,
-        //         hex: "DBF5",
-        //         disassembly: "mov $F5",
-        //         comment: 'Hello'
-        //     });
-        // };
         this.state = {
-            instructions: instructions
+            instructions: [{
+                address: '0000',
+                hex: '',
+                disassembly: '',
+                comment: ''
+            }],
         };
     }
 
@@ -83,7 +80,22 @@ class component extends React.Component {
             });
             ws.pub('cpu_info');
         });
+        ws.sub('cpu_info', (payload) => {
+            if (payload.registers.PC) {
+                if (this.ref) {
+                    this.ref.classList.remove('current-pc');
+                }
+                this.ref = this['refs'][payload.registers.PC];
+                this.ref.classList.add('current-pc');
+            }
+            if (this.ref.scrollIntoViewIfNeeded) {
+                this.ref.scrollIntoViewIfNeeded();
+            } else {
+                this.ref.scrollIntoView();
+            }
+        });
     }
+
 
     render() {
         return (
@@ -96,7 +108,7 @@ class component extends React.Component {
                         <Column>Comment</Column>
                     </Row>
                     {this.state.instructions.map(instruction =>
-                        <Row key={instruction.address} onClick={() => { }}>
+                        <Row key={instruction.address} ref={instruction.address}>
                             <Column style={{ maxWidth: '100px' }}>{instruction.address}</Column>
                             <Column style={{ maxWidth: '100px' }}>{instruction.hex}</Column>
                             <Column style={{ maxWidth: '300px' }}>{instruction.disassembly}</Column>

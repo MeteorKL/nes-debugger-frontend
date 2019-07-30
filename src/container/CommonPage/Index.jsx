@@ -23,7 +23,7 @@ const StyledNesInfo = styled(NesInfo)`
     right: 0; */
 `;
 export default class component extends React.Component {
-    propTypes = {
+    static propTypes = {
         className: PropTypes.string,
     }
 

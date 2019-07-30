@@ -17,7 +17,7 @@ const Button = styled.button`
     padding: 5px;
 `;
 export default class component extends React.Component {
-    propTypes = {
+    static propTypes = {
         className: PropTypes.string,
     }
 

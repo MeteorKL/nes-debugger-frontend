@@ -5,20 +5,20 @@ import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Table = styled.div`
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
 `;
 const Row = styled.div`
     display: flex;
     :hover input {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :hover {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :nth-child(1){
         font-weight: bold;
-        background-color: #4CAF50;
-        border-bottom: 1px solid #ddd;
+        background-color: #547A82;
+        border-bottom: 1px solid #DDDDDD;
         color: white;
         position: sticky;
         top: 0;
@@ -27,7 +27,7 @@ const Row = styled.div`
 const Column = styled.div`
     padding-left: 4px;
     flex: 1;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #DDDDDD;
     :nth-child(1){
         border: none;
     }
@@ -46,39 +46,61 @@ class component extends React.Component {
             Y: 0,
             SP: 0,
             P: 0,
-            N: 0, V: 0, U: 0, B: 0,
-            D: 0, I: 0, Z: 0, C: 0,
-        }
+        },
+        flags: [
+            0, 0, 0, 0, 0, 0, 0, 0
+        ]
     }
 
     componentDidMount() {
         ws.sub('cpu_info', (payload) => {
-            payload.registers.C = (payload.registers.P >> 0) & 1;
-            payload.registers.Z = (payload.registers.P >> 1) & 1;
-            payload.registers.I = (payload.registers.P >> 2) & 1;
-            payload.registers.D = (payload.registers.P >> 3) & 1;
-            payload.registers.B = (payload.registers.P >> 4) & 1;
-            payload.registers.U = (payload.registers.P >> 5) & 1;
-            payload.registers.O = (payload.registers.P >> 6) & 1;
-            payload.registers.N = (payload.registers.P >> 7) & 1;
-            this.setState({ registers: payload.registers });
+
+            this.setState({
+                registers: payload.registers,
+                flags: Array.apply(null, { length: 8 }).map((_, i) => (payload.registers.P >> i) & 1)
+            });
         });
     }
 
     render() {
         return (
-            <Table className={this.props.className}>
-                <Row>
-                    <Column>
-                        Registers
-                    </Column>
-                </Row>
-                {Object.keys(this.state.registers).map(key =>
-                    <Row key={key}>
-                        <Column>{key}</Column>
-                        <Column>{this.state.registers[key]}</Column>
-                    </Row>)}
-            </Table>
+            <div className={this.props.className}>
+
+                <Table className={this.props.className}>
+                    <Row>
+                        <Column>
+                            Registers
+                        </Column>
+                    </Row>
+                    {Object.keys(this.state.registers).map(key =>
+                        <Row key={key}>
+                            <Column>{key}</Column>
+                            <Column>{this.state.registers[key]}</Column>
+                        </Row>)}
+                </Table>
+                <Table className={this.props.className}>
+                    <Row>
+                        <Column>
+                            Flags
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>C</Column>
+                        <Column>Z</Column>
+                        <Column>I</Column>
+                        <Column>D</Column>
+                        <Column>B</Column>
+                        <Column>U</Column>
+                        <Column>O</Column>
+                        <Column>N</Column>
+                    </Row>
+                    <Row>
+                        {Object.keys(this.state.flags).map((key, i) =>
+                            <Column key={i}>{this.state.flags[key]} </Column>
+                        )}
+                    </Row>
+                </Table>
+            </div>
         );
     }
 }

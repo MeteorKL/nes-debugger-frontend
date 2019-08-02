@@ -6,21 +6,21 @@ import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Table = styled.div`
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
     flex: 1;
 `;
 const Row = styled.div`
     display: flex;
     :hover input {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :hover {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :nth-child(1){
         font-weight: bold;
-        background-color: #4CAF50;
-        border-bottom: 1px solid #ddd;
+        background-color: #547A82;
+        border-bottom: 1px solid #DDDDDD;
         color: white;
         position: sticky;
         top: 0;
@@ -29,7 +29,7 @@ const Row = styled.div`
 const Column = styled.div`
     padding-left: 4px;
     flex: 1;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #DDDDDD;
 `;
 
 class component extends React.Component {

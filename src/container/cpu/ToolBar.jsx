@@ -33,7 +33,7 @@ export default class component extends React.Component {
             height: 1.5em;
             width: 1.5em;
             background-color: ${this.state.status};
-            border: 1px solid #ddd;
+            border: 1px solid #DDDDDD;
         `;
         return (
             <App>

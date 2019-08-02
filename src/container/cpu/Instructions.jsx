@@ -16,20 +16,20 @@ const Table = styled.div`
     top: 0;
     bottom: 0;
     right: 0;
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
 `;
 const Row = styled.div`
     display: flex;
     :hover input {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :hover {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :nth-child(1){
         font-weight: bold;
-        background-color: #4CAF50;
-        border-bottom: 1px solid #ddd;
+        background-color: #547A82;
+        border-bottom: 1px solid #DDDDDD;
         color: white;
         position: sticky;
         top: 0;
@@ -38,7 +38,7 @@ const Row = styled.div`
 const Column = styled.div`
     padding-left: 4px;
     flex: 1;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #DDDDDD;
     :nth-child(1){
         border: none;
     }
@@ -82,11 +82,16 @@ class component extends React.Component {
             ws.pub('cpu_info');
         });
         ws.sub('cpu_info', (payload) => {
+            ws.pub('cpu_mem', { start: 0 });
             if (payload.registers.PC) {
                 if (this.ref) {
                     this.ref.classList.remove('current-pc');
                 }
                 this.ref = this['refs'][payload.registers.PC];
+                if (!this.ref) {
+                    console.error(`Unknown PC: ${payload.registers.PC}`);
+                    return;
+                }
                 this.ref.classList.add('current-pc');
             }
             if (this.ref.scrollIntoViewIfNeeded) {
@@ -124,7 +129,7 @@ class component extends React.Component {
                         <Column>Comment</Column>
                     </Row>
                     {this.state.instructions.map(instruction =>
-                        <Row key={instruction.address} ref={instruction.address} onClick={()=>{this.addBreakpoint(instruction.address);}}>
+                        <Row key={instruction.address} ref={instruction.address} onClick={() => { this.addBreakpoint(instruction.address); }}>
                             <Column style={{ maxWidth: '100px' }}>{instruction.address}</Column>
                             <Column style={{ maxWidth: '100px' }}>{instruction.hex}</Column>
                             <Column style={{ maxWidth: '300px' }}>{instruction.disassembly}</Column>

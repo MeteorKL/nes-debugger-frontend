@@ -49,7 +49,7 @@ const LeftDiv = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* border-right: 1px solid #bbb; */
+    /* border-right: 1px solid #2A363B; */
 `;
 const RightDiv = styled.div`
     display: flex;
@@ -93,7 +93,7 @@ export default class component extends React.Component {
                 <BodyDiv>
                     <LeftDiv>
                         <Instructions />
-                        <Memory/>
+                        <Memory />
                     </LeftDiv>
                     <RightDiv>
                         <Vectors />

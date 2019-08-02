@@ -5,20 +5,20 @@ import ws from '../../utils/ws';
 
 import styled from 'styled-components';
 const Table = styled.div`
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
 `;
 const Row = styled.div`
     display: flex;
     :hover input {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :hover {
-        background-color: #ddd;
+        background-color: #DDDDDD;
     }
     :nth-child(1){
         font-weight: bold;
-        background-color: #4CAF50;
-        border-bottom: 1px solid #ddd;
+        background-color: #547A82;
+        border-bottom: 1px solid #DDDDDD;
         color: white;
         position: sticky;
         top: 0;
@@ -27,7 +27,7 @@ const Row = styled.div`
 const Column = styled.div`
     padding-left: 4px;
     flex: 1;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #DDDDDD;
     :nth-child(1){
         border: none;
     }

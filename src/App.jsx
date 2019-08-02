@@ -36,7 +36,7 @@ const DebugPage = styled.div`
     bottom: 0;
     left: 260px;
     right: 0; */
-    border-left: 1px solid #aaa;
+    border-left: 1px solid #2A363B;
     flex: 1;
 `;
 
